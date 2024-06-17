@@ -11,22 +11,24 @@
     <body>
         <div class="container">
             <div class="app-title">
-                <h2>Country Scramble</h2>
-                <!-- <h3>Hint 1</h3>
-                <h3>Countries 1</h3> -->
+                <h2 class="app-title-header">Country Scramble</h2>
+                <p class="hint-counter">Hints: 0</p>
+                <p class="correct-counter">Correct: 0/194</p>
             </div>
             <div class="content">
                 <p class="word"></p>
                 <div class="details">
                     <p class="hint">Hint: <span></span></p>
-                    <p class="time">Time Left: <span><b></b> seconds</span></p>
+                    <div class="time-country">
+                        <p class="time">Time Left: <span><b></b> seconds</span></p>
+                        <p class="country-counter">Country #1</p>
+                    </div>
                 </div>
                 <input type="text" id="input" placeholder="Enter guess" autocomplete="off">
                 <p class="answer"></p>
                 <div class="buttons">
                     <button class="refresh-word">Next Word</button>
                     <button class="show-hint">Show Hint</button>
-                    <!-- <button class="check-word">Check Word</button> -->
                 </div>
             </div>
         </div>

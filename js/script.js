@@ -1,23 +1,31 @@
-/*
-fix congo
-cabo verde
+/* To do list:
+Add in hint and country counter; also correct counter
+Test it all the way to the end
 */
 
+// update text on screen
 const wordText = document.querySelector(".word"),
 hintText = document.querySelector(".hint"),
 timeText = document.querySelector(".time b"),
 answerText = document.querySelector(".answer"),
+hintCounterText = document.querySelector(".hint-counter"),
+correctCounterText = document.querySelector(".correct-counter"),
+countryCounterText = document.querySelector(".country-counter"), 
+// capture input
 inputField = document.querySelector("input"),
+// define buttons
 refreshBtn = document.querySelector(".refresh-word"),
 hintBtn = document.querySelector(".show-hint");
 
-let correctWord, timer, correctWordOutput;
+let correctWord, timer, correctWordOutput,
+hintCounter = 0, countryCounter = 0, correctCounter = 0, hintUsed;
 
 // Define time logic
 const initTimer = maxTime => {
 
     // Reset timer
     clearInterval(timer);
+    console.log(words.length);
 
     // Set text output to time allowed
     timeText.innerText = maxTime
@@ -46,11 +54,17 @@ const nextWord = () => {
     inputField.value = '';
     hintText.style.display = "none";
     answerText.style.display = "none";
+    hintUsed = false;
 
     // Run if at least one country in array
     if (words.length > 0) {
 
+        // Set timer
         initTimer(20);
+
+        // Add count to overall
+        countryCounter += 1;
+        countryCounterText.innerText = `Country #${countryCounter}`;
 
         // Pick random country and remove from array
         let randomObjIndex = Math.floor(Math.random() * words.length);
@@ -102,6 +116,8 @@ const checkWord = () => {
     }
 
     // Output if word is correct
+    correctCounter += 1;
+    correctCounterText.innerText = `Correct: ${correctCounter}/194`;
     answerText.innerText = `Yes, ${correctWordOutput} is the correct word`;
 
     // Reset timer and move on to next round
@@ -119,7 +135,14 @@ refreshBtn.addEventListener("click", initGame);
 
 // Show hint if hint button selected
 hintBtn.addEventListener("click", () => {
-    hintText.style.display = "block";
+    
+    // Only run if hint has not been activated
+    if(!hintUsed){
+        hintCounter += 1;
+        hintCounterText.innerText = `Hints: ${hintCounter}`;
+        hintText.style.display = "block";
+        hintUsed = true;
+    }
 });
 
 initGame();

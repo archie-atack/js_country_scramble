@@ -18,12 +18,29 @@ body {
     background: #fff;
     border-radius: 7px;
 }
-.container .app-title h2 {
-    font-size: 25px;
-    font-weight: 500;
+.container .app-title {
+    display: flex;
     padding: 18px 25px;
     border-bottom: 1px solid #ccc;
 }
+.container .app-title-header {
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.container .hint-counter {
+    font-size: 20px;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.container .correct-counter {
+    font-size: 20px;
+    margin-left: 20px;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
 .container .content {
     margin: 25px 20px 35px;
 }
@@ -48,6 +65,10 @@ body {
 }
 .details p b {
     font-weight: 500;
+}
+.details .time-country {
+    display: flex;
+    justify-content: space-between;
 }
 .content input {
     width: 100%;

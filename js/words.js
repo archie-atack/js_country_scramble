@@ -113,7 +113,7 @@ const words = [
       "hint": "Landlocked country in East Africa"
     },
     {
-      "word": "Cabo Verde",
+      "word": "Cape Verde",
       "hint": "A group of islands in the Atlantic Ocean"
     },
     {
@@ -153,7 +153,7 @@ const words = [
       "hint": "Archipelago in the Indian Ocean"
     },
     {
-      "word": "Congo (Congo-Brazzaville)",
+      "word": "Democratic Republic of the Congo",
       "hint": "Located in Central Africa"
     },
     {
