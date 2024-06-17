@@ -114,7 +114,7 @@ const checkWord = () => {
 
         // Output if word is correct
         correctCounter += 1;
-        correctCounterText.innerText = `Correct: ${correctCounter}/194`;
+        correctCounterText.innerText = `Correct: ${correctCounter}/197`;
         answerText.innerText = `Yes, ${correctWordOutput} is the correct word`;
 
         // Reset timer and move on to next round

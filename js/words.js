@@ -775,6 +775,18 @@ const words = [
     {
       "word": "Zimbabwe",
       "hint": "Known for its dramatic landscape and wildlife"
+    },
+    {
+      "word": "Ivory Coast",
+      "hint": "Known for its cocoa bean production"
+    },
+    {
+      "word": "Republic of the Congo",
+      "hint": "Home to part of the Congo Rainforest"
+    },
+    {
+      "word": "Kosovo",
+      "hint": "Declared independence from Serbia in 2008"
     }
 ]
 
