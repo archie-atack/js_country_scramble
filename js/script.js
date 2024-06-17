@@ -103,28 +103,21 @@ const checkWord = () => {
 
     // Derive user input and show answer text
     let userWord = inputField.value.toLocaleLowerCase().replace(/\s/ig, '');
-    answerText.style.display = "block";
+    
+    // Update counter and go to new word if correct
+    if(userWord == correctWord) {
 
-    // Error if no word entered
-    if(!userWord) {
-       return answerText.innerText = "Enter an answer";
-    };
+        // Output if word is correct
+        correctCounter += 1;
+        correctCounterText.innerText = `Correct: ${correctCounter}/194`;
+        answerText.innerText = `Yes, ${correctWordOutput} is the correct word`;
 
-    // Output if word is incorrect
-    if(userWord !== correctWord) {
-        return answerText.innerText = `Ooops, ${userWord} is not the correct word`;
+        // Reset timer and move on to next round
+        clearInterval(timer);
+
+        // Choose next word
+        nextWord();
     }
-
-    // Output if word is correct
-    correctCounter += 1;
-    correctCounterText.innerText = `Correct: ${correctCounter}/194`;
-    answerText.innerText = `Yes, ${correctWordOutput} is the correct word`;
-
-    // Reset timer and move on to next round
-    clearInterval(timer);
-
-    // Choose next word
-    nextWord();
 }
 
 // Checks if input matches required word
