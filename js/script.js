@@ -1,5 +1,8 @@
 /* To do list:
-Add in hint and country counter; also correct counter
+Add in options to do by continent
+Check country list
+Stop people being able to just guess after time runs out lol
+Better formatting for hint and other bits
 Test it all the way to the end
 */
 
@@ -18,7 +21,7 @@ refreshBtn = document.querySelector(".refresh-word"),
 hintBtn = document.querySelector(".show-hint");
 
 let correctWord, timer, correctWordOutput,
-hintCounter = 0, countryCounter = 0, correctCounter = 0, hintUsed;
+hintCounter = 0, countryCounter = 0, correctCounter = 0, hintUsed, timeExpired;
 
 // Define time logic
 const initTimer = maxTime => {
@@ -38,9 +41,10 @@ const initTimer = maxTime => {
             maxTime--;
             timeText.innerText = maxTime;
         } else {
-            // When time is up, display the answer time out text
+            // When time is up, display the answer time out text and set time expired
+            timeExpired = true;
             answerText.style.display = "block";
-            answerText.innerText = `Ooops, ${correctWordOutput} is the answer`;
+            answerText.innerText = `Ooops, ${correctWordOutput} is the answer. Select Skip Word for next country.`;
 
             // Stop the timer
             clearInterval(timer);
@@ -55,6 +59,7 @@ const nextWord = () => {
     hintText.style.display = "none";
     answerText.style.display = "none";
     hintUsed = false;
+    timeExpired = false;
 
     // Run if at least one country in array
     if (words.length > 0) {
@@ -104,8 +109,8 @@ const checkWord = () => {
     // Derive user input and show answer text
     let userWord = inputField.value.toLocaleLowerCase().replace(/\s/ig, '');
     
-    // Update counter and go to new word if correct
-    if(userWord == correctWord) {
+    // Update counter and go to new word if correct and time has not expired
+    if(userWord == correctWord && timeExpired == false) {
 
         // Output if word is correct
         correctCounter += 1;
