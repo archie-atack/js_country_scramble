@@ -1,6 +1,0 @@
-timer which times out if too long
-
-game 
-- clears any guesses / hides hints and answers
-- select random word from list
-- split up and rearrange word; filter it to take out spaces and special characters
