@@ -18,6 +18,46 @@ body {
     background: #fff;
     border-radius: 7px;
 }
+/* hide game on start-up; only show set-up page*/
+.container .game {
+    display: none;
+}
+
+.difficulty-title {
+    border-bottom: 1px solid #ccc;
+    padding: 18px 25px;
+}
+
+.difficulty-title .difficulty-choose {
+    font-weight: 100;
+}
+
+/* Container to hold buttons in grid layout */
+.difficulty-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 18px 0px;
+}
+
+/* Style individual buttons */
+.difficulty-button {
+    padding: 18px 25px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 17px;
+    border-radius: 5px;
+}
+
+/* Adjust the first button to span two columns */
+.difficulty-button:last-child {
+    grid-column: span 2;
+}
+
 .container .app-title {
     display: flex;
     padding: 18px 25px;
@@ -99,6 +139,10 @@ body {
     width: calc(100% / 2 - 8px);
 }
 .buttons .refresh-word {
-    background: #468156;
+    background: #2f563a;
+    color: #fff;
+}
+.buttons .reveal-word {
+    background: #5dab72;
     color: #fff;
 }

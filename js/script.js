@@ -1,13 +1,12 @@
 /* To do list:
-Add in options to do by continent
-Check country list
-Stop people being able to just guess after time runs out lol
-Better formatting for hint and other bits
-Test it all the way to the end
+Final score message?
 */
 
+// set-up and game screens
+const difficultyScreen = document.querySelector('.difficulty-screen'),
+game = document.querySelector('.game'),
 // update text on screen
-const wordText = document.querySelector(".word"),
+wordText = document.querySelector(".word"),
 hintText = document.querySelector(".hint"),
 timeText = document.querySelector(".time b"),
 answerText = document.querySelector(".answer"),
@@ -17,18 +16,20 @@ countryCounterText = document.querySelector(".country-counter"),
 // capture input
 inputField = document.querySelector("input"),
 // define buttons
+difficultyButtons = document.querySelectorAll('.difficulty-button'),
 refreshBtn = document.querySelector(".refresh-word"),
+revealBtn = document.querySelector(".reveal-word")
 hintBtn = document.querySelector(".show-hint");
 
-let correctWord, timer, correctWordOutput,
-hintCounter = 0, countryCounter = 0, correctCounter = 0, hintUsed, timeExpired;
+let correctWord, timer, correctWordOutput, filteredCountries = words,
+hintCounter = 0, countryCounter = 0, correctCounter = 0, hintUsed, timeExpired
+, difficultyLevel, numberCountries;
 
 // Define time logic
 const initTimer = maxTime => {
 
     // Reset timer
     clearInterval(timer);
-    console.log(words.length);
 
     // Set text output to time allowed
     timeText.innerText = maxTime
@@ -44,7 +45,7 @@ const initTimer = maxTime => {
             // When time is up, display the answer time out text and set time expired
             timeExpired = true;
             answerText.style.display = "block";
-            answerText.innerText = `Ooops, ${correctWordOutput} is the answer. Select Skip Word for next country.`;
+            answerText.innerText = `Time is up! ${correctWordOutput} is the answer. Select Skip Word for next country.`;
 
             // Stop the timer
             clearInterval(timer);
@@ -61,9 +62,12 @@ const nextWord = () => {
     hintUsed = false;
     timeExpired = false;
 
-    // Run if at least one country in array
-    if (words.length > 0) {
+    // Reset timer
+    clearInterval(timer);
 
+    // Run if at least one country in array
+    if (filteredCountries.length > 0) {
+        
         // Set timer
         initTimer(20);
 
@@ -72,9 +76,9 @@ const nextWord = () => {
         countryCounterText.innerText = `Country #${countryCounter}`;
 
         // Pick random country and remove from array
-        let randomObjIndex = Math.floor(Math.random() * words.length);
-        let randomObj = words[randomObjIndex];
-        words.splice(randomObjIndex, 1);
+        let randomObjIndex = Math.floor(Math.random() * filteredCountries.length);
+        let randomObj = filteredCountries[randomObjIndex];
+        filteredCountries.splice(randomObjIndex, 1);
 
         // Shuffle word
         let wordArray = randomObj.word.split("");
@@ -100,10 +104,6 @@ const nextWord = () => {
     }
 }
 
-const initGame = () => {
-    nextWord();
-}
-
 const checkWord = () => {
 
     // Derive user input and show answer text
@@ -114,7 +114,7 @@ const checkWord = () => {
 
         // Output if word is correct
         correctCounter += 1;
-        correctCounterText.innerText = `Correct: ${correctCounter}/197`;
+        correctCounterText.innerText = `Correct: ${correctCounter}/${numberCountries}`;
         answerText.innerText = `Yes, ${correctWordOutput} is the correct word`;
 
         // Reset timer and move on to next round
@@ -129,7 +129,19 @@ const checkWord = () => {
 inputField.addEventListener("input",checkWord)
 
 // Move to next word if time out or skip required
-refreshBtn.addEventListener("click", initGame);
+refreshBtn.addEventListener("click", nextWord);
+
+// Reveal word if user does not know + ends round
+revealBtn.addEventListener("click", () => {
+    
+    // Show answer and set time expired so cant be correct
+    timeExpired = true;
+    answerText.style.display = "block";
+    answerText.innerText = `${correctWordOutput} is the answer. Select Skip Word for next country.`;
+
+    // Stop the timer
+    clearInterval(timer);
+});
 
 // Show hint if hint button selected
 hintBtn.addEventListener("click", () => {
@@ -143,7 +155,37 @@ hintBtn.addEventListener("click", () => {
     }
 });
 
-initGame();
+// Define game start function
+const startGame = () => {
+    // Hide the difficulty screen and show the game screen
+    difficultyScreen.style.display = 'none';
+    game.style.display = 'block';
+
+    // Set score
+    correctCounterText.innerText = `Correct: ${correctCounter}/${numberCountries}`;
+
+    // Set up initial conditions and start the first word
+    nextWord();
+}
+
+// Derive difficulty and start game
+difficultyButtons.forEach(button => {
+    button.addEventListener('click', (event) => {
+        const difficulty = event.target.dataset.difficulty;
+        
+        // Set difficulty level in the game (this could involve setting some global variable)
+        if(difficulty == "All") {
+            numberCountries = words.length;
+        } else {
+            filteredCountries = words.filter(country => country.continent === difficulty);
+            numberCountries = filteredCountries.length;
+        }
+
+        startGame();
+    });
+});
+
+
 
 
 
