@@ -23,7 +23,7 @@ hintBtn = document.querySelector(".show-hint");
 
 let correctWord, timer, correctWordOutput, filteredCountries = words,
 hintCounter = 0, countryCounter = 0, correctCounter = 0, hintUsed, timeExpired
-, difficultyLevel, numberCountries;
+, difficultyLevel, numberCountries, scoreRatio;
 
 // Define time logic
 const initTimer = maxTime => {
@@ -100,7 +100,20 @@ const nextWord = () => {
 
     } else {
         // Handle end of game scenario
-        wordText.innerText = "Game over! No more words.";
+
+        scoreRatio = correctCounter / numberCountries
+
+        if (scoreRatio < 0.25) {
+            wordText.innerText = "Game over! Did you even try?";
+        } else if (scoreRatio < 0.50) {
+            wordText.innerText = "Game over! Not bad, seen better";
+        } else if (scoreRatio < 0.75) {
+            wordText.innerText = "Game over! Good effort";
+        } else if (scoreRatio < 1) {
+            wordText.innerText = "Game over! Great job";
+        } else if (scoreRatio === 1) {
+            wordText.innerText = "Game over! Geography royalty 👑";
+        }
     }
 }
 
